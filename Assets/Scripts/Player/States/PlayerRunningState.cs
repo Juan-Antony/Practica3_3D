@@ -31,7 +31,7 @@ public class PlayerRunningState : State<PlayerController>
             movementVector * Time.deltaTime * mController.speed
         );
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             currentSpeed = runSpeed;
             mController.speed = 10f;
