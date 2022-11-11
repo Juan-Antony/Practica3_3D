@@ -20,6 +20,7 @@ public class PlayerIdleState : State<PlayerController>
     public override void OnLogicUpdate()
     {
         base.OnLogicUpdate();
+        
         if (InputManager.Instance.Movement != Vector2.zero)
         {
             mAnimator.SetFloat("Speed", 1f, mController.dampTime, Time.deltaTime);

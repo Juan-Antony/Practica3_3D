@@ -7,6 +7,9 @@ public class PlayerRunningState : State<PlayerController>
 {
     private CharacterController mCharacterController;
     private Animator mAnimator;
+    private float currentSpeed;
+    private float runSpeed = 1f;
+    private float walkSpeed = 0.5f;
 
     public PlayerRunningState(
         PlayerController controller, 
@@ -28,6 +31,17 @@ public class PlayerRunningState : State<PlayerController>
             movementVector * Time.deltaTime * mController.speed
         );
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            currentSpeed = runSpeed;
+            mController.speed = 10f;
+        }
+        else
+        {
+            currentSpeed = walkSpeed;
+            mController.speed = 5f;
+        }
+
         if (InputManager.Instance.Movement == Vector2.zero)
         {
             mAnimator.SetFloat("Speed", 0f, mController.dampTime, Time.deltaTime);
@@ -36,7 +50,7 @@ public class PlayerRunningState : State<PlayerController>
         }
         else
         {
-            mAnimator.SetFloat("Speed", 1f, mController.dampTime, Time.deltaTime);
+            mAnimator.SetFloat("Speed", currentSpeed, mController.dampTime, Time.deltaTime);
             // Rotation
             mController.transform.rotation = Quaternion.Lerp(
                 mController.transform.rotation,
